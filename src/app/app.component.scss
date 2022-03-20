@@ -1,0 +1,15 @@
+.header {
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--primary);
+  height: 10vh;
+
+  h1{
+    text-align: center;
+    font-weight: bold;
+    color: var(--darkPrimary);
+  }
+}
+
