@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { StoreService } from '../../services/store.service';
 
 @Component({
   selector: 'app-number-button',
@@ -9,9 +10,19 @@ export class NumberButtonComponent implements OnInit {
 
   @Input() number:number = 0;
 
-  constructor() { }
+  constructor(
+
+    private storeService: StoreService
+
+  ) {
+
+   }
 
   ngOnInit(): void {
+  }
+
+  onAddNumber(number:number){
+   this.storeService.addNumber(number);
   }
 
 }
