@@ -121,8 +121,12 @@ export class StoreService {
     this.lastOperation.next('/');
 
     if(this.counterOperations>=2){
-      this.operand1.next((Number(this.getOperand1()) / Number(this.getOperand2())).toString())
-      this.operand2.next('0');
+      if(this.getOperand1() === '0' && this.getOperand2() ==='0'){
+        this.onResetValues();
+      }else{
+        this.operand1.next((Number(this.getOperand1()) / Number(this.getOperand2())).toString())
+        this.operand2.next('0');
+      }
     }
   }
 
