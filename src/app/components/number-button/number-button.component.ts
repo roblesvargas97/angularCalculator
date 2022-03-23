@@ -22,7 +22,9 @@ export class NumberButtonComponent implements OnInit {
   }
 
   onAddNumber(number:number){
-   this.storeService.addNumber(number);
+   this.storeService.setOperand1(number);
+   this.storeService.setOperand2(number);
+
   }
 
 }

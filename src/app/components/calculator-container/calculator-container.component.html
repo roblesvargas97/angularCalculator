@@ -1,6 +1,9 @@
 <div>
-  <p>{{screenResult }}</p>
+  <p>{{operand1}}</p>
+  <p>{{operand2}}</p>
   <div>
     <app-number-button [number] = "number" *ngFor="let number of numbers" ></app-number-button>
+    <app-operation-button [operation] = "operation" *ngFor="let operation of operations" ></app-operation-button>
+    <button (click)="onResult()" type="button">=</button>
   </div>
 </div>
