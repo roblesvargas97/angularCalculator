@@ -79,14 +79,7 @@ export class StoreService {
 
 
   onSustraction(){
-    if((this.getOperand1().charAt(this.getOperand1().length-1) === '.')){
-      const newValue = this.getOperand1().slice(0 , this.getOperand1().length-1);
-      this.operand1.next(newValue);
-    }
-    if((this.getOperand2().charAt(this.getOperand2().length-1) === '.')){
-      const newValue = this.getOperand2().slice(0 , this.getOperand2().length-1);
-      this.operand2.next(newValue);
-    }
+    this.verifyDecimalPoint();
     this.setOnOperation(true);
     this.setCounterOperations();
     this.lastOperation.next('-');
@@ -97,14 +90,7 @@ export class StoreService {
   }
 
   onSum(){
-    if((this.getOperand1().charAt(this.getOperand1().length-1) === '.')){
-      const newValue = this.getOperand1().slice(0 , this.getOperand1().length-1);
-      this.operand1.next(newValue);
-    }
-    if((this.getOperand2().charAt(this.getOperand2().length-1) === '.')){
-      const newValue = this.getOperand2().slice(0 , this.getOperand2().length-1);
-      this.operand2.next(newValue);
-    }
+    this.verifyDecimalPoint();
     this.setOnOperation(true);
     this.setCounterOperations();
     this.lastOperation.next('+');
@@ -115,14 +101,7 @@ export class StoreService {
   }
 
   onMultiplication(){
-    if((this.getOperand1().charAt(this.getOperand1().length-1) === '.')){
-      const newValue = this.getOperand1().slice(0 , this.getOperand1().length-1);
-      this.operand1.next(newValue);
-    }
-    if((this.getOperand2().charAt(this.getOperand2().length-1) === '.')){
-      const newValue = this.getOperand2().slice(0 , this.getOperand2().length-1);
-      this.operand2.next(newValue);
-    }
+    this.verifyDecimalPoint();
     this.setOnOperation(true);
     this.setCounterOperations();
     this.lastOperation.next('x');
@@ -136,14 +115,7 @@ export class StoreService {
   }
 
   onDivision(){
-    if((this.getOperand1().charAt(this.getOperand1().length-1) === '.')){
-      const newValue = this.getOperand1().slice(0 , this.getOperand1().length-1);
-      this.operand1.next(newValue);
-    }
-    if((this.getOperand2().charAt(this.getOperand2().length-1) === '.')){
-      const newValue = this.getOperand2().slice(0 , this.getOperand2().length-1);
-      this.operand2.next(newValue);
-    }
+    this.verifyDecimalPoint();
     this.setOnOperation(true);
     this.setCounterOperations();
     this.lastOperation.next('/');
@@ -179,6 +151,16 @@ export class StoreService {
   }
 
 
+ verifyDecimalPoint(){
+  if((this.getOperand1().charAt(this.getOperand1().length-1) === '.')){
+    const newValue = this.getOperand1().slice(0 , this.getOperand1().length-1);
+    this.operand1.next(newValue);
+  }
+  if((this.getOperand2().charAt(this.getOperand2().length-1) === '.')){
+    const newValue = this.getOperand2().slice(0 , this.getOperand2().length-1);
+    this.operand2.next(newValue);
+  }
+ }
 
 
 }
