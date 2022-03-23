@@ -105,8 +105,10 @@ export class StoreService {
     this.lastOperation.next('x');
 
     if(this.counterOperations>=2){
-      this.operand1.next(this.getOperand1() * this.getOperand2())
-      this.operand2.next(0);
+      if(this.getOperand2() !==0 ){
+        this.operand1.next(this.getOperand1() * this.getOperand2())
+        this.operand2.next(0);
+      }
     }
   }
 
@@ -123,13 +125,9 @@ export class StoreService {
 
   onResetValues(){
     this.setOnOperation(false);
-    console.log(this.getOnOperation());
     this.resetCounterOperations();
-    console.log(this.counterOperations);
     this.operand1.next(0);
-    console.log(this.getOperand1());
     this.operand2.next(0);
-    console.log(this.getOperand2());
   }
 
 
