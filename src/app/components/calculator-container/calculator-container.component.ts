@@ -57,7 +57,7 @@ export class CalculatorContainerComponent implements OnInit {
   }
 
   onReset(){
-    this.storeService.getReset();
+    this.storeService.onResetValues();
   }
 
 
