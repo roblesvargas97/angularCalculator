@@ -7,11 +7,10 @@ import { BehaviorSubject } from 'rxjs';
 export class StoreService {
 
 
-  private operand1 = new BehaviorSubject<number>(0);
-  private operand2 = new BehaviorSubject<number>(0);
-  private onReset = new BehaviorSubject <boolean>(false);
+  private operand1 = new BehaviorSubject<string>('0');
+  private operand2 = new BehaviorSubject<string>('0');
   private onOperation = new BehaviorSubject<boolean>(false);
-  private operandBackUp = new BehaviorSubject <number>(0);
+  private operandBackUp = new BehaviorSubject <string>('0');
   private lastOperation = new BehaviorSubject <string>('');
   private counterOperations:number = 0;
   operand1$ = this.operand1.asObservable();
@@ -21,17 +20,25 @@ export class StoreService {
   constructor() { }
 
 
-  setOperand1(number:number){
-    if(this.getOnOperation() === false && this.getReset() ===false ){
-      this.operand1.next(Number(this.getOperand1().toString() + number.toString() ));
+  setOperand1(number:string){
+    if(this.getOnOperation() === false ){
+      if(this.getOperand1().charAt(0) === '0'){
+        const newValue =  this.getOperand1().slice(1);
+        this.operand1.next(newValue);
+      }
+      this.operand1.next(this.getOperand1() + number );
       // console.log(this.getOperand1());
     }
   }
 
-  setOperand2(number:number){
+  setOperand2(number:string){
 
     if(this.getOnOperation() === true ){
-      this.operand2.next(Number(this.getOperand2().toString() + number.toString() ));
+      if(this.getOperand2().charAt(0) === '0'){
+        const newValue =  this.getOperand2().slice(1);
+        this.operand2.next(newValue);
+      }
+      this.operand2.next(this.getOperand2() + number );
       // console.log(this.getOperand2());
     }
   }
@@ -41,9 +48,6 @@ export class StoreService {
     // console.log(this.getOnOperation());
   }
 
-  setOnReset(value:boolean){
-    this.onReset.next(value);
-  }
 
   setCounterOperations(){
     this.counterOperations++;
@@ -53,7 +57,7 @@ export class StoreService {
     this.counterOperations = 0;
   }
 
-  setOperandBackup(value:number){
+  setOperandBackup(value:string){
     this.operandBackUp.next(value);
   }
 
@@ -73,61 +77,105 @@ export class StoreService {
     return this.operandBackUp.getValue();
   }
 
-  getReset(){
-    return this.onReset.getValue();
-  }
 
   onSustraction(){
+    if((this.getOperand1().charAt(this.getOperand1().length-1) === '.')){
+      const newValue = this.getOperand1().slice(0 , this.getOperand1().length-1);
+      this.operand1.next(newValue);
+    }
+    if((this.getOperand2().charAt(this.getOperand2().length-1) === '.')){
+      const newValue = this.getOperand2().slice(0 , this.getOperand2().length-1);
+      this.operand2.next(newValue);
+    }
     this.setOnOperation(true);
     this.setCounterOperations();
     this.lastOperation.next('-');
-
     if(this.counterOperations>=2){
-      this.operand1.next(this.getOperand1() - this.getOperand2())
-      this.operand2.next(0);
+      this.operand1.next((Number(this.getOperand1()) - Number(this.getOperand2())).toString())
+      this.operand2.next('0');
     }
   }
 
   onSum(){
+    if((this.getOperand1().charAt(this.getOperand1().length-1) === '.')){
+      const newValue = this.getOperand1().slice(0 , this.getOperand1().length-1);
+      this.operand1.next(newValue);
+    }
+    if((this.getOperand2().charAt(this.getOperand2().length-1) === '.')){
+      const newValue = this.getOperand2().slice(0 , this.getOperand2().length-1);
+      this.operand2.next(newValue);
+    }
     this.setOnOperation(true);
     this.setCounterOperations();
     this.lastOperation.next('+');
-
     if(this.counterOperations>=2){
-      this.operand1.next(this.getOperand1() + this.getOperand2())
-      this.operand2.next(0);
+      this.operand1.next((Number(this.getOperand1()) + Number(this.getOperand2())).toString())
+      this.operand2.next('0');
     }
   }
 
   onMultiplication(){
+    if((this.getOperand1().charAt(this.getOperand1().length-1) === '.')){
+      const newValue = this.getOperand1().slice(0 , this.getOperand1().length-1);
+      this.operand1.next(newValue);
+    }
+    if((this.getOperand2().charAt(this.getOperand2().length-1) === '.')){
+      const newValue = this.getOperand2().slice(0 , this.getOperand2().length-1);
+      this.operand2.next(newValue);
+    }
     this.setOnOperation(true);
     this.setCounterOperations();
     this.lastOperation.next('x');
 
     if(this.counterOperations>=2){
-      if(this.getOperand2() !==0 ){
-        this.operand1.next(this.getOperand1() * this.getOperand2())
-        this.operand2.next(0);
+      if(this.getOperand2() !=='0' ){
+        this.operand1.next((Number(this.getOperand1()) * Number(this.getOperand2())).toString())
+        this.operand2.next('0');
       }
     }
   }
 
   onDivision(){
+    if((this.getOperand1().charAt(this.getOperand1().length-1) === '.')){
+      const newValue = this.getOperand1().slice(0 , this.getOperand1().length-1);
+      this.operand1.next(newValue);
+    }
+    if((this.getOperand2().charAt(this.getOperand2().length-1) === '.')){
+      const newValue = this.getOperand2().slice(0 , this.getOperand2().length-1);
+      this.operand2.next(newValue);
+    }
     this.setOnOperation(true);
     this.setCounterOperations();
     this.lastOperation.next('/');
 
     if(this.counterOperations>=2){
-      this.operand1.next(this.getOperand1() / this.getOperand2())
-      this.operand2.next(0);
+      this.operand1.next((Number(this.getOperand1()) / Number(this.getOperand2())).toString())
+      this.operand2.next('0');
     }
   }
 
   onResetValues(){
     this.setOnOperation(false);
     this.resetCounterOperations();
-    this.operand1.next(0);
-    this.operand2.next(0);
+    this.operand1.next('0');
+    this.operand2.next('0');
+  }
+
+  addPoint(){
+    if(this.getOnOperation() === false ){
+      const valueToString = this.getOperand1();
+      if(!(valueToString.charAt(valueToString.length - 1)=== '.')){
+        const newValue = valueToString + '.';
+        this.operand1.next(newValue);
+      }
+    }
+    if(this.getOnOperation() === true){
+      const valueToString = this.getOperand2();
+      if(!(valueToString.charAt(valueToString.length - 1)=== '.')){
+        const newValue = valueToString + '.';
+        this.operand2.next(newValue);
+      }
+    }
   }
 
 

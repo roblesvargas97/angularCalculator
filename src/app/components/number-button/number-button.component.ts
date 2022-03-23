@@ -8,7 +8,7 @@ import { StoreService } from '../../services/store.service';
 })
 export class NumberButtonComponent implements OnInit {
 
-  @Input() number:number = 0;
+  @Input() number:string= '0';
 
   constructor(
 
@@ -21,7 +21,7 @@ export class NumberButtonComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onAddNumber(number:number){
+  onAddNumber(number:string){
    this.storeService.setOperand1(number);
    this.storeService.setOperand2(number);
 

@@ -2,9 +2,10 @@
   <p>{{operand1}}</p>
   <p>{{operand2}}</p>
   <div>
-    <app-number-button [number] = "number" *ngFor="let number of numbers" ></app-number-button>
+    <app-number-button [number] = "number.toString()" *ngFor="let number of numbers" ></app-number-button>
     <app-operation-button [operation] = "operation" *ngFor="let operation of operations" ></app-operation-button>
     <button (click)="onResult()" type="button">=</button>
     <button (click)="onReset()">CE</button>
+    <button (click)="onAddPoint()" >.</button>
   </div>
 </div>

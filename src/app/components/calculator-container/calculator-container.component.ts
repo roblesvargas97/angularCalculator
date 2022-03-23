@@ -10,8 +10,8 @@ export class CalculatorContainerComponent implements OnInit {
 
   numbers: number[] = [0,1,2,3,4,5,6,7,8,9];
   operations: string[] = ['+' , '-' , '/' , 'x'];
-  operand1: number = 0;
-  operand2: number = 0;
+  operand1: string = '0';
+  operand2: string = '0';
   lastOperation: string = '';
 
   constructor(
@@ -60,5 +60,8 @@ export class CalculatorContainerComponent implements OnInit {
     this.storeService.onResetValues();
   }
 
+  onAddPoint(){
+    this.storeService.addPoint();
+  }
 
 }
