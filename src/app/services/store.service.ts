@@ -49,6 +49,10 @@ export class StoreService {
     this.counterOperations++;
   }
 
+  resetCounterOperations(){
+    this.counterOperations = 0;
+  }
+
   setOperandBackup(value:number){
     this.operandBackUp.next(value);
   }
@@ -98,7 +102,7 @@ export class StoreService {
   onMultiplication(){
     this.setOnOperation(true);
     this.setCounterOperations();
-    this.lastOperation.next('/');
+    this.lastOperation.next('x');
 
     if(this.counterOperations>=2){
       this.operand1.next(this.getOperand1() * this.getOperand2())
@@ -109,7 +113,7 @@ export class StoreService {
   onDivision(){
     this.setOnOperation(true);
     this.setCounterOperations();
-    this.lastOperation.next('x');
+    this.lastOperation.next('/');
 
     if(this.counterOperations>=2){
       this.operand1.next(this.getOperand1() / this.getOperand2())
@@ -117,6 +121,12 @@ export class StoreService {
     }
   }
 
+  onResetValues(){
+    this.setOnOperation(false);
+    this.resetCounterOperations();
+    this.operand1.next(0);
+    this.operand2.next(0);
+  }
 
 
 

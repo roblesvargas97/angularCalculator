@@ -28,8 +28,6 @@ export class OperationButtonComponent implements OnInit {
       case 'x':
         return( this.storeService.onMultiplication());
 
-
-
       default:
         break;
     }
